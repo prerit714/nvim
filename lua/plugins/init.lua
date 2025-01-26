@@ -1,27 +1,24 @@
 return {
-  -- Rose-pine is pretty good
+  -- add gruvbox
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "ellisonleao/gruvbox.nvim",
     opts = {
-      undercurl = false,
-      underline = false,
-      bold = false,
       italic = {
         strings = false,
-        emphasis = false,
+        underline = false,
+        emphasis = true,
+        comments = false,
         operators = false,
         folds = false,
-        comments = false,
       },
     },
   },
 
-  -- Configure LazyVim to load rose-pine
+  -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "rose-pine",
+      colorscheme = "gruvbox",
     },
   },
 

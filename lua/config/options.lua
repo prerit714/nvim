@@ -6,3 +6,5 @@ vim.opt.colorcolumn = "80"
 vim.opt.relativenumber = false
 vim.g.snacks_animate = false
 vim.opt.wrap = false
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }

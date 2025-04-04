@@ -15,7 +15,3 @@ vim.opt.wrap = false
 -- Invisible chars show
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Render a tab 4 chars wide
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4

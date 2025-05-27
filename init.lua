@@ -16,7 +16,7 @@ vim.o.colorcolumn = "80"
 vim.o.wrap = false
 
 -- NOTE: Uncomment to show empty chars
--- vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -201,6 +201,12 @@ function _G.toggle_conform()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>tf", ":lua toggle_conform()<CR>", { noremap = true, silent = true })
+
+-- Window navigation remaps
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 -- Load lazy
 require "config.lazy"

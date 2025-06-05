@@ -7,6 +7,7 @@ return {
     opts = {
       ensure_installed = {
         "http",
+        "biome",
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

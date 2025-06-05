@@ -187,6 +187,21 @@ end
 -- Key mapping to toggle wrap (using <Leader>w)
 vim.api.nvim_set_keymap("n", "<leader>w", ":lua toggle_wrap()<CR>", { noremap = true, silent = true })
 
+--- @type boolean
+vim.g.format_on_save_enabled = false
+
+-- Toggle autoformat with conform
+function _G.toggle_conform()
+  vim.g.format_on_save_enabled = not vim.g.format_on_save_enabled
+  if vim.g.format_on_save_enabled then
+    print "Format on save enabled"
+  else
+    print "Format on save disabled"
+  end
+end
+
+vim.api.nvim_set_keymap("n", "<leader>tf", ":lua toggle_conform()<CR>", { noremap = true, silent = true })
+
 -- Window navigation remaps
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })

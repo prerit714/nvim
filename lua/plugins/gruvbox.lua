@@ -1,3 +1,8 @@
+-- Remove this to enable gruvbox again
+if true then
+  return {}
+end
+
 return {
   "ellisonleao/gruvbox.nvim",
   opts = {},

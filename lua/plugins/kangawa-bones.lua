@@ -8,7 +8,7 @@ return {
     priority = 1000,
     -- you can set set configuration options here
     config = function()
-        vim.g.zenbones_darken_comments = 45
+        vim.g.zenbones_darken_comments = 80
         vim.cmd.colorscheme('kanagawabones')
     end
 }

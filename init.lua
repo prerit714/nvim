@@ -15,9 +15,6 @@ vim.o.list = true
 vim.o.colorcolumn = "80"
 vim.o.wrap = false
 
--- NOTE: Uncomment to show empty chars
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2

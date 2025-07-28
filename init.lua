@@ -15,22 +15,31 @@ vim.o.list = true
 vim.o.colorcolumn = "80"
 vim.o.wrap = false
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
 
-vim.opt.more = false
-vim.opt.foldmethod = "manual"
-vim.opt.title = true
-vim.opt.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
-
-vim.opt.undofile = true
-vim.opt.swapfile = false
+vim.o.clipboard = "unnamedplus"
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
+vim.o.undofile = true
+vim.o.hidden = true
 
 vim.schedule(function()
   vim.o.clipboard = "unnamedplus"
 end)
+
+
+vim.o.undolevels = 1000
+vim.o.undoreload = 10000
+vim.o.history = 1000
+
+vim.o.more = false
+vim.o.foldmethod = "manual"
+vim.o.title = true
+vim.o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 vim.o.inccommand = "split"
 vim.o.cursorline = true
@@ -70,6 +79,7 @@ function _G.statusline()
   statusline = statusline .. " %l:%c/%L "
   statusline = statusline .. " [%{&fileencoding?&fileencoding:&encoding}] "
   statusline = statusline .. " " .. os.date "%Y-%m-%d %I:%M:%S %p" .. " "
+  statusline = statusline .. " %p%% "
   return statusline
 end
 
@@ -89,7 +99,7 @@ if timer ~= nil then
   )
 end
 
-vim.opt.laststatus = 2
+vim.o.laststatus = 2
 
 -- Resize buffers when I am using more than 1
 vim.api.nvim_create_autocmd("VimResized", {

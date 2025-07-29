@@ -15,10 +15,53 @@ vim.o.list = true
 vim.o.colorcolumn = "80"
 vim.o.wrap = false
 
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
 vim.o.expandtab = true
+
+-- Render special characters
+vim.opt.listchars = {
+  tab = "▸ ",
+  trail = "·",
+  extends = "›",
+  precedes = "‹",
+  nbsp = "␣",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "go",
+    "rust",
+    "python",
+    "c",
+    "cpp",
+    "java",
+    "kotlin",
+    "php",
+    "html",
+    "xml",
+  },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.shiftwidth = 4
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "lua",
+    "typescript",
+    "javascript",
+    "typescriptreact",
+    "javascriptreact",
+    "css",
+    "scss",
+  },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+  end,
+})
 
 vim.o.clipboard = "unnamedplus"
 vim.o.backup = false
@@ -30,7 +73,6 @@ vim.o.hidden = true
 vim.schedule(function()
   vim.o.clipboard = "unnamedplus"
 end)
-
 
 vim.o.undolevels = 1000
 vim.o.undoreload = 10000
@@ -44,6 +86,7 @@ vim.o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 vim.o.inccommand = "split"
 vim.o.cursorline = true
 vim.o.scrolloff = 10
+vim.o.winborder = "single"
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("i", "jk", "<Esc>", {

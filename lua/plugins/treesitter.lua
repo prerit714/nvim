@@ -33,7 +33,7 @@ return {
     keys = {
       {
         "<leader>tc",
-        "<cmd>TSContextToggle<cr>",
+        "<cmd>TSContext toggle<cr>",
         desc = "Toggle tree-sitter context",
       },
     },

@@ -19,7 +19,7 @@ return {
         return nil
       end
 
-      local disable_filetypes = { c = true, cpp = true }
+      local disable_filetypes = { c = false, cpp = false }
 
       if disable_filetypes[vim.bo[bufnr].filetype] then
         return nil
@@ -32,7 +32,10 @@ return {
     end,
     formatters_by_ft = {
       lua = { "stylua" },
-      biome = {},
+      typescriptreact = { "biome", stop_after_first = true, lsp_format = "fallback" },
+      javascript = { "biome", stop_after_first = true, lsp_format = "fallback" },
+      typescript = { "biome", stop_after_first = true, lsp_format = "fallback" },
+      json = { "biome", stop_after_first = true, lsp_format = "fallback" },
     },
   },
 }

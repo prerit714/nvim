@@ -101,10 +101,13 @@ return {
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        clangd = {},
+        gopls = {},
+        pyrefly = {},
+        rust_analyzer = {},
+        vtsls = {},
+        ["tailwindcss-language-server"] = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -112,7 +115,6 @@ return {
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
-        --
 
         lua_ls = {
           settings = {

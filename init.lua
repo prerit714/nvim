@@ -259,5 +259,78 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { silent = true })
 
+-- Create an autocommand group for filetype indentation
+local indent_group = vim.api.nvim_create_augroup("FileTypeIndent", { clear = true })
+
+-- My filetype settings
+local filetype_settings = {
+  -- Web development (2 spaces)
+  javascript = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  typescript = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  typescriptreact = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  html = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  css = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  scss = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  json = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  yaml = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  vue = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  svelte = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+
+  -- Python (4 spaces, PEP 8)
+  python = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Lua (2 spaces)
+  lua = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+
+  -- Go (tabs)
+  go = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- C/C++ (4 spaces or tabs, depending on preference)
+  c = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  cpp = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Rust (4 spaces)
+  rust = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Java (4 spaces)
+  java = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Shell scripts (2 spaces)
+  sh = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  bash = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  zsh = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+
+  -- Ruby (2 spaces)
+  ruby = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+
+  -- PHP (4 spaces)
+  php = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Markdown (4 spaces)
+  markdown = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+
+  -- Make files (must use tabs)
+  make = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 0 },
+}
+
+-- Function to apply indentation settings
+local function set_indent_settings(settings)
+  for option, value in pairs(settings) do
+    vim.opt_local[option] = value
+  end
+end
+
+-- Create autocommands for each filetype
+for filetype, settings in pairs(filetype_settings) do
+  vim.api.nvim_create_autocmd("FileType", {
+    group = indent_group,
+    pattern = filetype,
+    callback = function()
+      set_indent_settings(settings)
+    end,
+    desc = string.format("Set indentation for %s files", filetype),
+  })
+end
+
 -- Load lazy
 require "config.lazy"

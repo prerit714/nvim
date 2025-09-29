@@ -1,6 +1,6 @@
 -- Letting enable or disable copilot here
 
-local is_copilot_enabled = false
+local is_copilot_enabled = true
 
 if is_copilot_enabled then
   return {}

@@ -4,6 +4,7 @@ vim.g.maplocalleader = "\\"
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.breakindent = true
+vim.o.smartindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.signcolumn = "yes"
@@ -284,6 +285,7 @@ local filetype_settings = {
 
   -- Go (tabs)
   go = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  templ = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
 
   -- C/C++ (4 spaces or tabs, depending on preference)
   c = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },

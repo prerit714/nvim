@@ -2,7 +2,7 @@
 
 local is_copilot_enabled = true
 
-if is_copilot_enabled then
+if not is_copilot_enabled then
   return {}
 end
 

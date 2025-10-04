@@ -263,6 +263,13 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { silent = true })
 -- Create an autocommand group for filetype indentation
 local indent_group = vim.api.nvim_create_augroup("FileTypeIndent", { clear = true })
 
+-- Add .prisma as a file type
+vim.filetype.add({
+  extension = {
+    prisma = "prisma",
+  },
+})
+
 -- My filetype settings
 local filetype_settings = {
   -- Web development (2 spaces)
@@ -276,6 +283,7 @@ local filetype_settings = {
   yaml = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   vue = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   svelte = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  prisma = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
 
   -- Python (4 spaces, PEP 8)
   python = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },

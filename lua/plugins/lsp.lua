@@ -106,7 +106,7 @@ return {
         pyrefly = {},
         rust_analyzer = {},
         vtsls = {},
-        ["tailwindcss-language-server"] = {},
+        prismals = {},
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --

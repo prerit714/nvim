@@ -1,6 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Suppress lspconfig deprecation warnings globally
+vim.deprecate = function()
+  -- NOTE: This is a no-op to suppress deprecation warnings
+end
+
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.breakindent = true

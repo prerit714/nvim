@@ -1,11 +1,13 @@
--- Letting enable or disable copilot here
-
-local is_copilot_enabled = true
-
-if not is_copilot_enabled then
-  return {}
-end
-
 return {
-  "github/copilot.vim",
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  },
 }

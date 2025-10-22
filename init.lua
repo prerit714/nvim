@@ -290,6 +290,7 @@ local filetype_settings = {
   svelte = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   prisma = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   sql = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  toml = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
 
   -- Python (4 spaces, PEP 8)
   python = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },

@@ -27,7 +27,7 @@ return {
     -- Define the tasks
     return {
       name = "compile",
-      cmd = "g++-13", -- NOTE: I am specific to g++-13 for C++23 support
+      cmd = "g++",
       args = flags,
       components = { "default" },
     }

@@ -269,11 +269,11 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { silent = true })
 local indent_group = vim.api.nvim_create_augroup("FileTypeIndent", { clear = true })
 
 -- Add .prisma as a file type
-vim.filetype.add({
+vim.filetype.add {
   extension = {
     prisma = "prisma",
   },
-})
+}
 
 -- My filetype settings
 local filetype_settings = {
@@ -349,9 +349,9 @@ end
 
 -- Stuff specific for neovide
 if vim.g.neovide then
-    vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
-    vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
-    vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+  vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+  vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
+  vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
 end
 
 -- Load lazy

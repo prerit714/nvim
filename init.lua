@@ -354,5 +354,10 @@ if vim.g.neovide then
   vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
 end
 
+-- Update neovide font to be Iosevka Term
+if vim.g.neovide then
+  vim.o.guifont = "FiraCode Nerd Font Mono:h18"
+end
+
 -- Load lazy
 require "config.lazy"

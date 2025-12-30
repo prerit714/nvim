@@ -101,7 +101,12 @@ return {
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       local servers = {
-        clangd = {},
+        clangd = {
+          cmd = {
+            "clangd",
+            "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+          },
+        },
         gopls = {},
         pyrefly = {},
         rust_analyzer = {},

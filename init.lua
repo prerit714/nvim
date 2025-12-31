@@ -307,8 +307,8 @@ local filetype_settings = {
   -- Rust (4 spaces)
   rust = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
 
-  -- Java (4 spaces)
-  java = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  -- Java (2 spaces)
+  java = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
 
   -- Shell scripts (2 spaces)
   sh = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },

@@ -361,3 +361,13 @@ end
 
 -- Load lazy
 require "config.lazy"
+
+-- NOTE: This disables copilot on startup to prevent it from automatically
+-- suggesting code. This is a personal choice because I don't want to use AI
+-- until I need it
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
+  callback = function()
+    vim.cmd "Copilot disable"
+  end,
+})

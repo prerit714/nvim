@@ -11,7 +11,7 @@ return {
   builder = function()
     local file = vim.fn.expand "%:p"
     local file_stem = vim.fn.expand "%:t:r"
-    local output_path = vim.fn.expand "%:p:h" .. "/" .. file_stem
+    local output_path = vim.fn.expand "%:p:h" .. "/" .. file_stem .. ".out"
 
     -- Make sure flags are properly handled
     local flags = {}

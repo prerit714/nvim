@@ -1,21 +1,14 @@
--- Define common C++ compilation flags for competitive programming
-local cpp_competitive_flags = "-std=c++23 -O2 -Wall -Weffc++ -Wextra -Wshadow -Wconversion -Wsign-conversion -Werror -pedantic-errors -DLOCAL"
-
-local use_non_strict_flags = true
-if use_non_strict_flags then
-  cpp_competitive_flags = "-std=c++23 -O2"
-end
-
 return {
   name = "C++ run",
   builder = function()
+    local compile_flags = "-std=c++23 -O2"
     local file = vim.fn.expand "%:p"
     local file_stem = vim.fn.expand "%:t:r"
     local output_path = vim.fn.expand "%:p:h" .. "/" .. file_stem .. ".out"
 
     -- Make sure flags are properly handled
     local flags = {}
-    for flag in string.gmatch(cpp_competitive_flags, "%S+") do
+    for flag in string.gmatch(compile_flags, "%S+") do
       table.insert(flags, flag)
     end
 

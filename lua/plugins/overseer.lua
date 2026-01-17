@@ -4,7 +4,7 @@ return {
   config = function()
     require("overseer").setup {
       strategy = "toggleterm",
-      templates = { "builtin", "user.cpp_build", "user.cpp_run", "user.cpp_debug", "user.java_run" },
+      templates = { "builtin", "user.cpp_build", "user.cpp_run", "user.java_run" },
     }
 
     -- Keybindings using localleader

@@ -1,7 +1,7 @@
 -- Define common C++ compilation flags for competitive programming
 local cpp_competitive_flags = "-std=c++23 -O2 -Wall -Weffc++ -Wextra -Wshadow -Wconversion -Wsign-conversion -Werror -pedantic-errors -DLOCAL"
 
-local use_non_strict_flags = false
+local use_non_strict_flags = true
 if use_non_strict_flags then
   cpp_competitive_flags = "-std=c++23 -O2"
 end

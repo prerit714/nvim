@@ -24,7 +24,7 @@ return {
       overrides = function(colors) -- add/modify highlights
         return {}
       end,
-      theme = "wave", -- Load "wave" theme
+      theme = "dragon", -- Load "wave" theme
       background = { -- map the value of 'background' option to a theme
         dark = "dragon", -- try "dragon" !
         light = "lotus",
@@ -32,6 +32,6 @@ return {
     })
 
     -- setup must be called before loading
-    vim.cmd("colorscheme kanagawa-wave")
+    vim.cmd("colorscheme kanagawa-dragon")
   end,
 }

@@ -210,6 +210,16 @@ return {
         function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end,
         { desc = "[S]earch [N]eovim files" }
       )
+
+      -- For managing pomodori
+      require("telescope").load_extension("pomodori")
+
+      vim.keymap.set(
+        "n",
+        "<leader>mt",
+        function() require("telescope").extensions.pomodori.timers() end,
+        { desc = "Manage Pomodori Timers" }
+      )
     end,
   },
 }

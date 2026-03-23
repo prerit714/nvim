@@ -111,8 +111,9 @@ return {
       ---@type table<string, vim.lsp.Config>
       local servers = {
         clangd = {},
+        cmake = {},
         gopls = {},
-        -- pyright = {},
+        pyrefly = {},
         rust_analyzer = {},
         --
         -- Some languages (like typescript) have entire language plugins that

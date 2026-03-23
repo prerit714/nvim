@@ -19,7 +19,7 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 vim.schedule(function() vim.o.clipboard = "unnamedplus" end)
 
-vim.o.winborder = "rounded"
+vim.o.winborder = "single"
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set(
@@ -155,10 +155,12 @@ local filetype_settings = {
   ruby = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   php = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   markdown = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
-  make = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 0 },
   xml = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   html = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   groovy = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  txt = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  cmake = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  make = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
 }
 
 local function set_indent_settings(settings)
@@ -175,3 +177,51 @@ for filetype, settings in pairs(filetype_settings) do
     desc = string.format("Set indentation for %s files", filetype),
   })
 end
+
+-- NOTE: statusline with timer
+vim.g.timer_remaining = nil
+
+local function statusline_timer()
+  if vim.g.timer_remaining and vim.g.timer_remaining > 0 then
+    local mins = math.floor(vim.g.timer_remaining / 60)
+    local secs = vim.g.timer_remaining % 60
+    return string.format("[tim=%02d:%02d]", mins, secs)
+  end
+  return ""
+end
+
+_G.statusline_timer = statusline_timer
+
+vim.o.statusline =
+  "[fil=%f][mod=%m]%=%{v:lua.statusline_timer()}[tim=%{strftime('%H:%M:%S')}][row=%l|col=%c]"
+vim.o.laststatus = 2
+
+local timer = vim.uv.new_timer()
+
+---@diagnostic disable-next-line: need-check-nil
+timer:start(
+  1000,
+  1000,
+  vim.schedule_wrap(function()
+    if vim.g.timer_remaining and vim.g.timer_remaining > 0 then
+      vim.g.timer_remaining = vim.g.timer_remaining - 1
+      if vim.g.timer_remaining == 0 then
+        vim.notify("[timer] timer finished", vim.log.levels.ERROR)
+      end
+    end
+    vim.cmd("redrawstatus")
+  end)
+)
+
+vim.api.nvim_create_user_command("TimerStart", function(opts)
+  local mins = tonumber(opts.args)
+  if not mins or mins < 1 or mins > 60 then
+    vim.notify("[timer] usage: :TimerStart <1-60>", vim.log.levels.ERROR)
+    return
+  end
+  vim.g.timer_remaining = mins * 60
+  vim.notify(
+    string.format("[timer] started: %d minutes", mins),
+    vim.log.levels.INFO
+  )
+end, { nargs = 1 })

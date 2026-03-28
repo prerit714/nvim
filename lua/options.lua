@@ -181,19 +181,180 @@ end
 -- NOTE: statusline with timer
 vim.g.timer_remaining = nil
 
+local function pick(...)
+  for i = 1, select("#", ...) do
+    local value = select(i, ...)
+    if value ~= nil then
+      return value
+    end
+  end
+end
+
+local function get_hl(name)
+  local ok, highlight = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
+  return ok and highlight or {}
+end
+
+local function set_statusline_highlights()
+  local normal = get_hl("Normal")
+  local statusline = get_hl("StatusLine")
+  local cursorline = get_hl("CursorLine")
+  local directory = get_hl("Directory")
+  local warning = get_hl("DiagnosticWarn")
+  local info = get_hl("DiagnosticInfo")
+  local hint = get_hl("DiagnosticHint")
+  local fill_bg = pick(statusline.bg, normal.bg, 0x282828)
+  local fill_fg = pick(statusline.fg, normal.fg, 0xebdbb2)
+  local body_fg = pick(normal.bg, 0x1d2021)
+
+  vim.api.nvim_set_hl(0, "StatuslineFill", { fg = fill_fg, bg = fill_bg })
+  vim.api.nvim_set_hl(0, "StatuslineFile", {
+    fg = body_fg,
+    bg = pick(directory.fg, fill_fg, 0x83a598),
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "StatuslineFileEdge", {
+    fg = pick(directory.fg, fill_fg, 0x83a598),
+    bg = fill_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatuslineMeta", {
+    fg = fill_fg,
+    bg = pick(cursorline.bg, fill_bg, 0x32302f),
+  })
+  vim.api.nvim_set_hl(0, "StatuslineMetaEdge", {
+    fg = pick(cursorline.bg, fill_bg, 0x32302f),
+    bg = fill_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatuslineTimer", {
+    fg = body_fg,
+    bg = pick(warning.fg, fill_fg, 0xd79921),
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "StatuslineTimerEdge", {
+    fg = pick(warning.fg, fill_fg, 0xd79921),
+    bg = fill_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatuslineClock", {
+    fg = body_fg,
+    bg = pick(info.fg, fill_fg, 0x83a598),
+  })
+  vim.api.nvim_set_hl(0, "StatuslineClockEdge", {
+    fg = pick(info.fg, fill_fg, 0x83a598),
+    bg = fill_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatuslinePos", {
+    fg = body_fg,
+    bg = pick(hint.fg, fill_fg, 0x8ec07c),
+    bold = true,
+  })
+  vim.api.nvim_set_hl(0, "StatuslinePosEdge", {
+    fg = pick(hint.fg, fill_fg, 0x8ec07c),
+    bg = fill_bg,
+  })
+end
+
 local function statusline_timer()
   if vim.g.timer_remaining and vim.g.timer_remaining > 0 then
     local mins = math.floor(vim.g.timer_remaining / 60)
     local secs = vim.g.timer_remaining % 60
-    return string.format("[tim=%02d:%02d]", mins, secs)
+    return string.format("%02d:%02d", mins, secs)
   end
-  return ""
 end
 
-_G.statusline_timer = statusline_timer
+local function statusline_escape(text)
+  return text:gsub("%%", "%%%%")
+end
 
-vim.o.statusline =
-  "[fil=%f][mod=%m]%=%{v:lua.statusline_timer()}[tim=%{strftime('%H:%M:%S')}][row=%l|col=%c]"
+local function statusline_segment(edge_hl, body_hl, icon, text)
+  return table.concat({
+    "%#",
+    body_hl,
+    "# ",
+    icon,
+    " ",
+    text,
+    " ",
+    "%#StatuslineFill# ",
+  })
+end
+
+local function render_statusline()
+  local icons = vim.g.have_nerd_font and {
+    file = "󰈔",
+    clean = "󰄬",
+    modified = "󰏫",
+    timer = "󰔛",
+    clock = "󱑆",
+    position = "",
+  } or {
+    file = "F",
+    clean = "=",
+    modified = "+",
+    timer = "T",
+    clock = "C",
+    position = "P",
+  }
+
+  local file_path = vim.fn.expand("%:~:.")
+  if file_path == "" then
+    file_path = "[No Name]"
+  end
+
+  local modified_text = vim.bo.modified and "edited" or "saved"
+  local modified_icon = vim.bo.modified and icons.modified or icons.clean
+  local position = string.format("%d:%d", vim.fn.line("."), vim.fn.col("."))
+  local left = table.concat({
+    "%#StatuslineFill# ",
+    statusline_segment(
+      "StatuslineFileEdge",
+      "StatuslineFile",
+      icons.file,
+      "%<" .. statusline_escape(file_path)
+    ),
+    statusline_segment(
+      "StatuslineMetaEdge",
+      "StatuslineMeta",
+      modified_icon,
+      modified_text
+    ),
+  })
+
+  local right_parts = {}
+  local remaining = statusline_timer()
+  if remaining then
+    right_parts[#right_parts + 1] = statusline_segment(
+      "StatuslineTimerEdge",
+      "StatuslineTimer",
+      icons.timer,
+      remaining
+    )
+  end
+
+  right_parts[#right_parts + 1] = statusline_segment(
+    "StatuslineClockEdge",
+    "StatuslineClock",
+    icons.clock,
+    os.date("%H:%M:%S")
+  )
+  right_parts[#right_parts + 1] = statusline_segment(
+    "StatuslinePosEdge",
+    "StatuslinePos",
+    icons.position,
+    position
+  )
+
+  return left .. "%=" .. table.concat(right_parts)
+end
+
+_G.statusline_render = render_statusline
+
+set_statusline_highlights()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = set_statusline_highlights,
+  desc = "Refresh statusline highlight groups",
+})
+
+vim.o.statusline = "%!v:lua.statusline_render()"
 vim.o.laststatus = 2
 
 local timer = vim.uv.new_timer()

@@ -145,8 +145,8 @@ local filetype_settings = {
   lua = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   go = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   templ = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
-  c = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
-  cpp = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  c = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  cpp = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   rust = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   java = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   sh = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
@@ -184,14 +184,13 @@ vim.g.timer_remaining = nil
 local function pick(...)
   for i = 1, select("#", ...) do
     local value = select(i, ...)
-    if value ~= nil then
-      return value
-    end
+    if value ~= nil then return value end
   end
 end
 
 local function get_hl(name)
-  local ok, highlight = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
+  local ok, highlight =
+    pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
   return ok and highlight or {}
 end
 
@@ -261,9 +260,7 @@ local function statusline_timer()
   end
 end
 
-local function statusline_escape(text)
-  return text:gsub("%%", "%%%%")
-end
+local function statusline_escape(text) return text:gsub("%%", "%%%%") end
 
 local function statusline_segment(edge_hl, body_hl, icon, text)
   return table.concat({
@@ -279,26 +276,26 @@ local function statusline_segment(edge_hl, body_hl, icon, text)
 end
 
 local function render_statusline()
-  local icons = vim.g.have_nerd_font and {
-    file = "󰈔",
-    clean = "󰄬",
-    modified = "󰏫",
-    timer = "󰔛",
-    clock = "󱑆",
-    position = "",
-  } or {
-    file = "F",
-    clean = "=",
-    modified = "+",
-    timer = "T",
-    clock = "C",
-    position = "P",
-  }
+  local icons = vim.g.have_nerd_font
+      and {
+        file = "󰈔",
+        clean = "󰄬",
+        modified = "󰏫",
+        timer = "󰔛",
+        clock = "󱑆",
+        position = "",
+      }
+    or {
+      file = "F",
+      clean = "=",
+      modified = "+",
+      timer = "T",
+      clock = "C",
+      position = "P",
+    }
 
   local file_path = vim.fn.expand("%:~:.")
-  if file_path == "" then
-    file_path = "[No Name]"
-  end
+  if file_path == "" then file_path = "[No Name]" end
 
   local modified_text = vim.bo.modified and "edited" or "saved"
   local modified_icon = vim.bo.modified and icons.modified or icons.clean

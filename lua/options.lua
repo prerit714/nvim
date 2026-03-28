@@ -76,6 +76,14 @@ vim.keymap.set("i", "kj", "<Esc>", {
   silent = true,
 })
 
+vim.keymap.set("i", "JK", "<Esc>", {
+  silent = true,
+})
+
+vim.keymap.set("i", "KJ", "<Esc>", {
+  silent = true,
+})
+
 local toggle_wrap = function()
   vim.wo.wrap = not vim.wo.wrap
   if vim.wo.wrap then
@@ -145,8 +153,8 @@ local filetype_settings = {
   lua = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   go = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   templ = { expandtab = false, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
-  c = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
-  cpp = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  c = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
+  cpp = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   rust = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   java = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   sh = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },

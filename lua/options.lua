@@ -360,7 +360,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 vim.o.statusline = "%!v:lua.statusline_render()"
-vim.o.laststatus = 2
+vim.o.laststatus = 3
 
 local timer = vim.uv.new_timer()
 

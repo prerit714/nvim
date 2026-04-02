@@ -391,3 +391,10 @@ vim.api.nvim_create_user_command("TimerStart", function(opts)
     vim.log.levels.INFO
   )
 end, { nargs = 1 })
+
+-- Adding glsl to the file type
+vim.filetype.add({
+  extension = {
+    glsl = "glsl",
+  },
+})

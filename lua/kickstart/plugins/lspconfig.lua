@@ -166,6 +166,9 @@ return {
             Lua = {},
           },
         },
+
+        -- For OpenGL + glsl
+        glsl_analyzer = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})

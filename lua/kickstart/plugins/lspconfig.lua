@@ -169,6 +169,9 @@ return {
 
         -- For OpenGL + glsl
         glsl_analyzer = {},
+
+        -- For biome
+        biome = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})

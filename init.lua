@@ -1,3 +1,6 @@
+-- Silence deprecation warnings from Neovim/plugins during startup.
+vim.deprecate = function() end
+
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1.0
 
@@ -21,7 +24,7 @@ end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 
 require("options")
 require("keymaps")

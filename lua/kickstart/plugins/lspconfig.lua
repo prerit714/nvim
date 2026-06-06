@@ -14,6 +14,7 @@ return {
       },
       "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "b0o/schemastore.nvim",
       -- { "j-hui/fidget.nvim", opts = {} }, -- Using lualine instead
     },
     config = function()
@@ -115,6 +116,7 @@ return {
         gopls = {},
         pyrefly = {},
         rust_analyzer = {},
+        prismals = {},
         --
         -- Some languages (like typescript) have entire language plugins that
         -- can be useful: https://github.com/pmizio/typescript-tools.nvim
@@ -172,6 +174,15 @@ return {
 
         -- For biome
         biome = {},
+
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})

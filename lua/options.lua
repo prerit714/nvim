@@ -165,7 +165,7 @@ local filetype_settings = {
   markdown = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   xml = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
   html = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
-  groovy = { expandtab = true, shiftwidth = 4, tabstop = 4, softtabstop = 4 },
+  groovy = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   txt = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   cmake = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
   make = { expandtab = true, shiftwidth = 2, tabstop = 2, softtabstop = 2 },
